@@ -206,7 +206,8 @@ steps &lt;- fread(&quot;./data/activity.csv&quot;, header = T, sep = &quot;,&quo
 steps$date &lt;- ymd(steps$date)
 
 # knitr has some weird interactions with data.table, hence assignment to
-# &#39;knitrbug&#39;
+# &#39;knitrbug&#39;. Also some data.table stuff might be a bit hard to read - knitr
+# re-indents :(
 
 knitrbug &lt;- steps[, `:=`(datetime, sprintf(&quot;%04d&quot;, interval))]
 knitrbug &lt;- steps[, `:=`(datetime, sub(&quot;(\\d{1,2})(\\d{2})$&quot;, &quot;\\1:\\2&quot;, datetime))]
@@ -290,6 +291,8 @@ qplot(date, sum.steps, data = steps[, list(sum.steps = sum(steps)), by = date],
 <pre><code>##    new mean new median
 ## 1:    10766      10766
 </code></pre>
+
+<p><em>Impact looks quite limited, at least when looking on daily average and mean.</em></p>
 
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
 
